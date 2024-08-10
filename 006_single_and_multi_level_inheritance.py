@@ -1,5 +1,4 @@
-# Single level Inheritance
-# Multi level Inheritance
+# Single level Inheritance and Multi level Inheritance
 class A:
     def work1(self):
         print("this is Work 1")

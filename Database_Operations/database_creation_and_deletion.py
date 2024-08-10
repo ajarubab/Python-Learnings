@@ -30,28 +30,50 @@ try:
     
     # Check if the connection was successful
     if con.is_connected():
-        print("Connection established successfully")
+        print("\n\n******** Connection established successfully *********")
         
         # Create a cursor object
         mycursor = con.cursor()
 
+
+        # showing the current list of databases
+        print("\n\nThe list of current databases are : \n\n")
+        mycursor.execute("show databases")
+        for db in mycursor:
+            print(db)
+
         # Define the database name
         db_name = "abdb"
 
+        print("\n\n")
         # Check if the database exists before creation
         if check_database_exists(mycursor, db_name):
             print(f"Database '{db_name}' already exists.")
         else:
             mycursor.execute(f"CREATE DATABASE {db_name}")
-            print(f"Database '{db_name}' created successfully.")
+            print(f"Database '{db_name}' created successfully.\n")
 
+        # showing the current list of databases
+        print("The list of current databases after new database creation are : \n\n")
+        mycursor.execute("show databases")
+        for db in mycursor:
+            print(db)
+        
+        print("\n\n")
         # Check if the database exists before dropping
         if check_database_exists(mycursor, db_name):
             mycursor.execute(f"DROP DATABASE {db_name}")
-            print(f"Database '{db_name}' dropped successfully.")
+            print(f"Database '{db_name}' dropped successfully.\n")
         else:
             print(f"Database '{db_name}' not found, hence deletion not possible.")
+        
+        # showing the current list of databases
+        print("The list of current databases after deletion of a database : \n\n")
+        mycursor.execute("show databases")
+        for db in mycursor:
+            print(db)
 
+        print("\n\n")
 except Error as e:
     print(f"Error: {e}")
 
@@ -59,4 +81,4 @@ finally:
     # Ensure the connection is closed
     if con.is_connected():
         con.close()
-        print("Connection closed")
+        print("********** Connection closed **********\n")

@@ -52,7 +52,24 @@ try:
     except mysql.connector.IntegrityError as e:
         print(f"\nError: {e}. Duplicate entry detected, insertion skipped.")
 
- # Fetch and display the data from the table
+
+    # Select the record where the post is 'PM'
+    mycursor.execute("select * from employeeInfo where post = 'PM'")
+    
+    # Fetch the first matching record
+    showResult = mycursor.fetchone()
+    
+    # Check if a result was found
+    if showResult:
+        # Unpack the result tuple
+        emp_id, emp_name, post, salary = showResult
+        
+        # Print the results
+        print(f"Emp_id: {emp_id}, Emp_name: {emp_name}, Post: {post}, Salary: {salary}")
+    else:
+        print("No record found with the specified criteria.")
+        
+    # Fetch and display the data from the table
     mycursor.execute("SELECT * FROM employeeInfo")
     rows = mycursor.fetchall()  # Fetch all the rows
 
